@@ -1,7 +1,9 @@
 /**
  * Next.js 16 Proxy (formerly "middleware")
  *
- * In Next.js 16, the `middleware.ts` convention was renamed to `proxy.ts`.
+ * In Next.js 16, the `middleware.ts` file was renamed to `proxy.ts`
+ * AND the exported function must be named `proxy` (not `middleware`).
+ *
  * This file runs at the Edge before every matching request.
  *
  * Responsibilities:
@@ -33,14 +35,19 @@ const ADMIN_ROUTES = [
 /** Routes that redirect already-authenticated users away */
 const PUBLIC_AUTH_ROUTES = ["/login", "/register"];
 
-// Suppress unused variable warnings — these are used in Step 3
+// Suppress unused variable warnings — these will be used in Step 3
 void AUTH_ROUTES;
 void ADMIN_ROUTES;
 void PUBLIC_AUTH_ROUTES;
 
-export function middleware(request: NextRequest) {
+/**
+ * The proxy function — Next.js 16's replacement for `middleware`.
+ * Must be named exactly "proxy" for Next.js to recognize it.
+ */
+export function proxy(request: NextRequest) {
   // Placeholder — full auth check implemented in Step 3
   // NextAuth v5's auth() reads the JWT session cookie and checks roles here
+  void request;
   return NextResponse.next();
 }
 
