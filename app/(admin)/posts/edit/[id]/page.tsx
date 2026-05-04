@@ -1,7 +1,17 @@
 import type { Metadata } from "next";
+
 export const metadata: Metadata = { title: "Edit Post" };
-export default function EditPostPage({ params }: { params: { id: string } }) {
+
+// In Next.js 16+, params is a Promise and must be awaited
+export default async function EditPostPage({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}) {
+  const { id } = await params;
   return (
-    <main style={{ padding: "2rem", color: "var(--text-base)" }}>Edit Post {params.id} — Step 5</main>
+    <main style={{ padding: "2rem", color: "var(--text-base)" }}>
+      Edit Post {id} — Step 5
+    </main>
   );
 }
